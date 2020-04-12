@@ -1,0 +1,4 @@
+﻿<!-- https://natemcmaster.com/blog/2017/11/11/build-tools-in-nuget/ -->
+<Project>
+  <Import Project="$(MSBuildThisFileDirectory)/../../tools/CompileRazorFiles.targets" />
+</Project>

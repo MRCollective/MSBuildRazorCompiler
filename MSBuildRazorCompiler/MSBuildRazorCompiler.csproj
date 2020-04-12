@@ -9,4 +9,23 @@
     <PackageReference Include="RazorLight" Version="2.0.0-beta7" />
   </ItemGroup>
 
+  <!-- Ensure RazorRenderer builds first so we can grab it when creating our nuget package -->
+  <ItemGroup>
+    <ProjectReference Include="..\RazorRenderer\RazorRenderer.csproj" />
+  </ItemGroup>
+
+  <!-- Pack settings -->
+  <PropertyGroup>
+    <NoPackageAnalysis>true</NoPackageAnalysis>
+    <NuspecFile>MsBuildRazorCompiler.nuspec</NuspecFile>
+    <IntermediatePackDir>$(MSBuildProjectDirectory)/bin/$(Configuration)/publish/</IntermediatePackDir>
+    <PublishDir>$(IntermediatePackDir)$(TargetFramework)/</PublishDir>
+    <NuspecProperties>publishDir=$([MSBuild]::NormalizeDirectory($(IntermediatePackDir)))</NuspecProperties>
+  </PropertyGroup>
+
+  <!-- Executes /t:Publish for all target frameworks before packing-->
+  <Target Name="PublishAll" BeforeTargets="GenerateNuspec">
+    <MSBuild Projects="$(MSBuildProjectFullPath)" Targets="Publish" />
+  </Target>
+
 </Project>

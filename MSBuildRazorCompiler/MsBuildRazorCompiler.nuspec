@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MSBuildRazorCompiler</id>
+    <version>1.0.0</version>
+    <authors>Robert Moore, Matt Davies, MRCollective</authors>
+    <description>MSBuild target to statically compile .cshtml files on build of your project and then provide the code to render them at runtime.</description>
+  </metadata>
+  <files>
+    <file src="..\RazorRenderer\bin\Release\netcoreapp3.1\*.*" target="lib/netcoreapp3.1/" />
+    <file src="MSBuildRazorCompiler.targets" target="build/netcoreapp3.1/MSBuildRazorCompiler.targets" />
+
+    <file src="CompileRazorFiles.targets" target="tools/" />
+    <file src="$publishdir$\netcoreapp3.1\**\*" target="tools/netcoreapp3.1/" />
+  </files>
+</package>

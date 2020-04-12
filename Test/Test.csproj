@@ -10,8 +10,4 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\RazorRenderer\RazorRenderer.csproj" />
-  </ItemGroup>
-
 </Project>
