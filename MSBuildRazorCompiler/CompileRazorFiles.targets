@@ -6,7 +6,7 @@
     <MsBuildRazorCompilerRootNamespace>$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
   </PropertyGroup>
 
-  <Target Name="CompileRazorFiles" BeforeTargets="Build">
-    <Exec Command="$(MSBuildRazorCompilerExe) ""$(MsBuildRazorCompilerPath)"" $(RootNamespace)" />
+  <Target Name="CompileRazorFiles" BeforeTargets="CoreCompile">
+    <Exec Command="$(MSBuildRazorCompilerExe) &quot;$(MsBuildRazorCompilerPath)&quot; $(RootNamespace)" />
   </Target>
 </Project>

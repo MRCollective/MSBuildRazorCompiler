@@ -5,6 +5,12 @@
     <version>1.0.0</version>
     <authors>Robert Moore, Matt Davies, MRCollective</authors>
     <description>MSBuild target to statically compile .cshtml files on build of your project and then provide the code to render them at runtime.</description>
+    <!-- todo: For some reason the following isn't added automatically, and on restore it adds 1.0.0 of RazorLight for some reason -->
+    <dependencies>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="RazorLight" version="2.0.0-beta7" />
+      </group>
+    </dependencies>
   </metadata>
   <files>
     <file src="..\RazorRenderer\bin\Release\netcoreapp3.1\*.*" target="lib/netcoreapp3.1/" />

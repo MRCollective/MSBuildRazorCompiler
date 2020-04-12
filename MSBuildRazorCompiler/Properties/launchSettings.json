@@ -2,7 +2,7 @@
   "profiles": {
     "MSBuildRazorCompiler": {
       "commandName": "Project",
-      "commandLineArgs": "c:\\dev\\oss\\MSBuildRazorCompiler\\Test Test"
+      "commandLineArgs": "$(SolutionDir)Test Test"
     }
   }
 }

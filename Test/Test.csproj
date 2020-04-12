@@ -10,4 +10,13 @@
     <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="razorlight" Version="2.0.0-beta7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MSBuildRazorCompiler\MSBuildRazorCompiler.csproj" />
+    <ProjectReference Include="..\RazorRenderer\RazorRenderer.csproj" />
+  </ItemGroup>
+
 </Project>
