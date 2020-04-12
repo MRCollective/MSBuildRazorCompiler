@@ -1,0 +1,14 @@
+obj
+bin
+_ReSharper.*
+*.user
+*.ReSharper
+*.TeamCity.user
+*.suo
+~$*
+*~
+*.log
+packages
+*.received.*
+.vs
+*.nupkg
