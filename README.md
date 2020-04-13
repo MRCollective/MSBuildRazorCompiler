@@ -1,3 +1,4 @@
+
 # MSBuild Razor Compiler
 
 [![Build status](https://ci.appveyor.com/api/projects/status/yndlxwfnxom60n1s?svg=true)](https://ci.appveyor.com/project/MRCollective/msbuildrazorcompiler)
@@ -33,7 +34,20 @@ For intellisense to work it's recommended you add the following to the top of yo
 
 By default, your `.cshtml.cs` files will be nested under their `.cshtml` counterparts this using the [File Nesting feature in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/ide/file-nesting-solution-explorer?view=vs-2019) if your project is classified as an ASP.NET Core project.
 
-If you have a console app or class library you can trick it by ensuring your `.csproj` file starts with `<Project Sdk="Microsoft.NET.Sdk.Web">`.
+If you have a console app or class library you can trick it by ensuring your `.csproj` file starts with `<Project Sdk="Microsoft.NET.Sdk.Web">`. There are a couple of automatic behaviours you need to opt-out of though if you do that.
+
+Either way you should add the following to the `.csproj`:
+
+```xml
+  <PropertyGroup>
+    <PreserveCompilationContext>true</PreserveCompilationContext>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
+  </PropertyGroup>
+```
+
+### Console app
 
 Note: if you have a console app that means you'll need to add a `launchsettings.json` file in your `Properties` folder with something like this so that F5 still launches the app rather than IIS Express:
 
@@ -45,4 +59,20 @@ Note: if you have a console app that means you'll need to add a `launchsettings.
     }
   }
 }
+```
+
+### Class library
+
+You should add the following to the `.csproj`:
+
+```xml
+  <PropertyGroup>
+    <OutputType>Library</OutputType>
+  </PropertyGroup>
+```
+
+And add a `launchsettings.json` file in your `Properties` folder with something like this so that F5 doesn't launch IIS Express (it will fail, but it's meant to - it's a class library):
+
+```json
+{}
 ```
