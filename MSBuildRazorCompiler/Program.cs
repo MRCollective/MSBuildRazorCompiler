@@ -52,8 +52,8 @@ namespace MSBuildRazorCompiler
                     .Replace("namespace RazorLight.CompiledTemplates", $"namespace {namespacePath}")
                     .Replace("typeof(RazorLight.CompiledTemplates.GeneratedTemplate)", $"typeof({namespacePath}.{className})");
 
-                Console.WriteLine($"  Writing {file}.generated.cs");
-                File.WriteAllText(file + ".generated.cs", code, Encoding.UTF8);
+                Console.WriteLine($"  Writing {file}.cs");
+                File.WriteAllText(file + ".cs", code, Encoding.UTF8);
             }
 
             return 0;

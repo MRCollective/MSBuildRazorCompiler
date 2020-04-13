@@ -18,7 +18,7 @@ Because this library generates `.cs` files you don't need to worry about compila
 
 1. Include `SomeFile.cshtml` in your (netcoreapp3.1) project
 2. `Install-Package MSBuildRazorCompiler`
-3. Compile - you should now see `SomeFile.cshtml.generated.cs` next to your `SomeFile.cshtml`, this new file will contain a class `SomeFile` that extends `RazorLight.TemplatePage<TModel>` and will be in the namespace of your project at the folder level your file was in
+3. Compile - you should now see `SomeFile.cshtml.cs` next to your `SomeFile.cshtml`, this new file will contain a class `SomeFile` that extends `RazorLight.TemplatePage<TModel>` and will be in the namespace of your project at the folder level your file was in
 4. Execute the following code to get a rendered result (note: you'll need to add a `using RazorRenderer;`): `new SomeFile().Render(model, viewBag or null)` - there is also an async variant
 
 ## Intellisense
@@ -27,4 +27,22 @@ For intellisense to work it's recommended you add the following to the top of yo
 
 ```cshtml
 @inherits RazorLight.TemplatePage<MyModelType>
+```
+
+## File Nesting
+
+By default, your `.cshtml.cs` files will be nested under their `.cshtml` counterparts this using the [File Nesting feature in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/ide/file-nesting-solution-explorer?view=vs-2019) if your project is classified as an ASP.NET Core project.
+
+If you have a console app or class library you can trick it by ensuring your `.csproj` file starts with `<Project Sdk="Microsoft.NET.Sdk.Web">`.
+
+Note: if you have a console app that means you'll need to add a `launchsettings.json` file in your `Properties` folder with something like this so that F5 still launches the app rather than IIS Express:
+
+```json
+{
+  "profiles": {
+    "Test": {
+      "commandName": "Project"
+    }
+  }
+}
 ```

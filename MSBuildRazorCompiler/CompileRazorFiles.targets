@@ -18,7 +18,7 @@
 
   <Target Name="CleanCompiledRazorFiles" BeforeTargets="CoreClean">
     <ItemGroup>
-      <_CustomFilesToDelete Include="**\**\*.cshtml.generated.cs"/>
+      <_CustomFilesToDelete Include="**\**\*.cshtml.cs"/>
     </ItemGroup>
     <Delete Files='@(_CustomFilesToDelete)'/>
   </Target>
