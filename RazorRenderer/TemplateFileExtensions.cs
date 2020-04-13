@@ -7,6 +7,11 @@ namespace RazorRenderer
 {
     public static class TemplateFileExtensions
     {
+        public static IHtmlContent Render(this ITemplatePage template, ExpandoObject viewBag = null)
+        {
+            return RenderAsync(template, (object) null, viewBag).GetAwaiter().GetResult();
+        }
+
         public static IHtmlContent Render<TModel>(this ITemplatePage template, TModel model, ExpandoObject viewBag = null)
         {
             return RenderAsync(template, model, viewBag).GetAwaiter().GetResult();
