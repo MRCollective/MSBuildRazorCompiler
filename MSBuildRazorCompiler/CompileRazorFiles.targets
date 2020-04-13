@@ -10,4 +10,11 @@
   <Target Name="CompileRazorFiles" BeforeTargets="CoreCompile">
     <Exec Command="$(MSBuildRazorCompilerExe) &quot;$(MsBuildRazorCompilerPath)&quot; $(RootNamespace)" />
   </Target>
+
+  <Target Name="CleanCompiledRazorFiles" BeforeTargets="CoreClean">
+    <ItemGroup>
+      <_CustomFilesToDelete Include="**\**\*.cshtml.generated.cs"/>
+    </ItemGroup>
+    <Delete Files='@(_CustomFilesToDelete)'/>
+  </Target>
 </Project>
