@@ -17,6 +17,6 @@
     <file src="MSBuildRazorCompiler.targets" target="build/netcoreapp3.1/MSBuildRazorCompiler.targets" />
 
     <file src="CompileRazorFiles.targets" target="tools/" />
-    <file src="$publishdir$\netcoreapp3.1\**\*" target="tools/netcoreapp3.1/" />
+    <file src="..\MSBuildRazorCompiler\bin\Release\netcoreapp3.1\**\*" target="tools/netcoreapp3.1/" />
   </files>
 </package>
