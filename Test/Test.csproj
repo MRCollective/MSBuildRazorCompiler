@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <BuildPath>$(MSBuildThisFileDirectory)..\MSBuildRazorCompiler\bin\$(Configuration)\</BuildPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -18,5 +19,7 @@
     <ProjectReference Include="..\MSBuildRazorCompiler\MSBuildRazorCompiler.csproj" />
     <ProjectReference Include="..\RazorRenderer\RazorRenderer.csproj" />
   </ItemGroup>
+
+  <Import Project="../MSBuildRazorCompiler/CompileRazorFiles.targets" />
 
 </Project>

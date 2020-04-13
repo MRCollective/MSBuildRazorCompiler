@@ -1,7 +1,8 @@
 ﻿<!-- https://natemcmaster.com/blog/2017/11/11/build-tools-in-nuget/ -->
 <Project>
   <PropertyGroup>
-    <MSBuildRazorCompilerExe>dotnet "$(MSBuildThisFileDirectory)/netcoreapp3.1/MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
+    <BuildPath Condition="'$(BuildPath)' == ''">$(MSBuildThisFileDirectory)</BuildPath>
+    <MSBuildRazorCompilerExe>dotnet "$(BuildPath)netcoreapp3.1\MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
     <MsBuildRazorCompilerPath>$(MSBuildProjectDirectory)</MsBuildRazorCompilerPath>
     <MsBuildRazorCompilerRootNamespace>$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
   </PropertyGroup>
