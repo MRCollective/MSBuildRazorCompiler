@@ -30,6 +30,10 @@ For intellisense to work it's recommended you add the following to the top of yo
 @inherits RazorLight.TemplatePage<MyModelType>
 ```
 
+## Ignoring generated files from source control
+
+It's recommended that you add `*.cshtml.cs` to your `.gitignore` file so that you don't commit the generated files. That avoids superfluous diff/commit noise.
+
 ## File Nesting
 
 By default, your `.cshtml.cs` files will be nested under their `.cshtml` counterparts this using the [File Nesting feature in Visual Studio](https://docs.microsoft.com/en-us/visualstudio/ide/file-nesting-solution-explorer?view=vs-2019) if your project is classified as an ASP.NET Core project.
