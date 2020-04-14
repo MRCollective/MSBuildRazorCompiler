@@ -1,2 +1,6 @@
-﻿@inherits RazorLight.TemplatePage<object>
-<p>@Model.GetType()</p>
+﻿@using Test
+@inherits RazorRenderer.BasePage<object>
+<p>@Model.GetType(): @Model</p>
+@{ Include<SubPage, object>("xyz"); }
+
+<p>After include</p>

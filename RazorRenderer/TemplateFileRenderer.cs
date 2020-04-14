@@ -23,6 +23,16 @@ namespace RazorRenderer
             }
         }
 
+        public static async Task RenderIncludedTemplateAsync<T>(ITemplatePage parentPage, BasePage<T> includedTemplatePage, T model)
+        {
+            using (var scope = new MemoryPoolViewBufferScope())
+            {
+                var renderer = new TemplateRenderer(Handler, HtmlEncoder.Default, scope);
+                SetModelContext(includedTemplatePage, parentPage.PageContext.Writer, model, parentPage.PageContext.ViewBag);
+                await renderer.RenderAsync(includedTemplatePage).ConfigureAwait(false);
+            }
+        }
+
         private async static Task RenderTemplateAsync<T>(
             ITemplatePage templatePage,
             T model,
@@ -38,7 +48,7 @@ namespace RazorRenderer
                 await renderer.RenderAsync(templatePage).ConfigureAwait(false);
             }
         }
-
+        
         private static void SetModelContext<T>(
             ITemplatePage templatePage,
             TextWriter textWriter,

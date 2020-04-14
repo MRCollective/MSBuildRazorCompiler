@@ -30,6 +30,30 @@ For intellisense to work it's recommended you add the following to the top of yo
 @inherits RazorLight.TemplatePage<MyModelType>
 ```
 
+or:
+
+```cshtml
+@inherits RazorRenderer.BasePage<MyModelType>
+```
+
+The latter will opt you into functionality added to this library (see below).
+
+## Including a sub-file
+
+The RazorLight `Include` functionality has been disabled since it uses a magic string and this library aims to avoid runtime dynamic functionality, however, there is an include functionality that you can use. If you extend from `RazorRenderer.BasePage<TModel>` from the parent page and the child page:
+
+```cshtml
+@inherits RazorRenderer.BasePage<MyModelType>
+```
+
+Then in your parent file you can include another page using:
+
+```cshtml
+@{ Include<SubPage, MyModelType>(new MyModelType()); }
+```
+
+Where `SubPage` is the typename generated for the included page.
+
 ## Ignoring generated files from source control
 
 It's recommended that you add `*.cshtml.cs` to your `.gitignore` file so that you don't commit the generated files. That avoids superfluous diff/commit noise.
