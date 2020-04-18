@@ -5,10 +5,12 @@
     <MSBuildRazorCompilerExe>dotnet "$(BuildPath)netcoreapp3.1\MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
     <MsBuildRazorCompilerPath>$(MSBuildProjectDirectory)</MsBuildRazorCompilerPath>
     <MsBuildRazorCompilerRootNamespace>$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
-  </PropertyGroup>
+    <MsBuildRazorCompilerClassModifier>internal</MsBuildRazorCompilerClassModifier>
+  
+</PropertyGroup>
 
   <Target Name="CompileRazorFiles" BeforeTargets="CoreCompile">
-    <Exec Command="$(MSBuildRazorCompilerExe) &quot;$(MsBuildRazorCompilerPath)&quot; $(RootNamespace)" />
+    <Exec Command="$(MSBuildRazorCompilerExe) &quot;$(MsBuildRazorCompilerPath)&quot; $(MsBuildRazorCompilerRootNamespace) $(MsBuildRazorCompilerClassModifier)" />
     <!-- We need to re-scan included source files in case this build has generated new ones https://stackoverflow.com/a/44829863 -->
     <ItemGroup>
       <Compile Include="**/*$(DefaultLanguageSourceExtension)"

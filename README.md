@@ -22,6 +22,18 @@ Because this library generates `.cs` files you don't need to worry about compila
 3. Compile - you should now see `SomeFile.cshtml.cs` next to your `SomeFile.cshtml`, this new file will contain a class `SomeFile` that extends `RazorLight.TemplatePage<TModel>` and will be in the namespace of your project at the folder level your file was in
 4. Execute the following code to get a rendered result (note: you'll need to add a `using RazorRenderer;`): `new SomeFile().Render(model, viewBag or null)` - there is also an async variant
 
+## Configuration
+
+If you want to configure the options for the compiler you can override any of these default variables in your `.csproj` file:
+
+```xml
+    <BuildPath Condition="'$(BuildPath)' == ''">$(MSBuildThisFileDirectory)</BuildPath>
+    <MSBuildRazorCompilerExe>dotnet "$(BuildPath)netcoreapp3.1\MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
+    <MsBuildRazorCompilerPath>$(MSBuildProjectDirectory)</MsBuildRazorCompilerPath>
+    <MsBuildRazorCompilerRootNamespace>$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
+    <MsBuildRazorCompilerClassModifier>internal</MsBuildRazorCompilerClassModifier>
+```
+
 ## Intellisense
 
 For intellisense to work it's recommended you add the following to the top of your file:

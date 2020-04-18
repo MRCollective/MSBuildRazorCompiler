@@ -16,6 +16,7 @@ namespace MSBuildRazorCompiler
         {
             var directoryToApply = args.Length > 0 ? args[0] : null;
             var rootNamespace = args.Length > 1 ? args[1] : null;
+            var classModifier = args.Length > 2 ? args[2] : "internal";
 
             if (string.IsNullOrEmpty(directoryToApply) || !Directory.Exists(directoryToApply) || !Path.IsPathFullyQualified(directoryToApply))
             {
@@ -48,7 +49,7 @@ namespace MSBuildRazorCompiler
                 Console.WriteLine($"  Classname will be `{className}` and namespace will be `{namespacePath}`");
 
                 var code = source.GeneratedCode
-                    .Replace("public class GeneratedTemplate", $"public class {className}")
+                    .Replace("public class GeneratedTemplate", $"{classModifier} class {className}")
                     .Replace("namespace RazorLight.CompiledTemplates", $"namespace {namespacePath}")
                     .Replace("typeof(RazorLight.CompiledTemplates.GeneratedTemplate)", $"typeof({namespacePath}.{className})");
 
