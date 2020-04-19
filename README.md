@@ -28,10 +28,13 @@ If you want to configure the options for the compiler you can override any of th
 
 ```xml
     <BuildPath Condition="'$(BuildPath)' == ''">$(MSBuildThisFileDirectory)</BuildPath>
-    <MSBuildRazorCompilerExe>dotnet "$(BuildPath)netcoreapp3.1\MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
-    <MsBuildRazorCompilerPath>$(MSBuildProjectDirectory)</MsBuildRazorCompilerPath>
-    <MsBuildRazorCompilerRootNamespace>$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
-    <MsBuildRazorCompilerClassModifier>internal</MsBuildRazorCompilerClassModifier>
+    <MSBuildRazorCompile Condition="'$(MSBuildRazorCompile)' == ''">true</MSBuildRazorCompile>
+    <MsBuildRazorCompilerILRepack Condition="'$(MsBuildRazorCompilerILRepack)' == ''">true</MsBuildRazorCompilerILRepack>
+    <MSBuildRazorCompilerExe Condition="'$(MSBuildRazorCompilerExe)' == ''">dotnet "$(BuildPath)netcoreapp3.1\MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
+    <MsBuildRazorCompilerPath Condition="'$(MsBuildRazorCompilerPath)' == ''">$(MSBuildProjectDirectory)</MsBuildRazorCompilerPath>
+    <MsBuildRazorCompilerRootNamespace Condition="'$(MsBuildRazorCompilerRootNamespace)' == ''">$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
+    <MsBuildRazorCompilerClassModifier Condition="'$(MsBuildRazorCompilerClassModifier)' == ''">internal</MsBuildRazorCompilerClassModifier>
+    <CopyLocalLockFileAssemblies Condition="'$(MsBuildRazorCompilerILRepack)' == 'true' and '$(CopyLocalLockFileAssemblies)' == ''">true</CopyLocalLockFileAssemblies>
 ```
 
 ## Intellisense

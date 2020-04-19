@@ -2,14 +2,16 @@
 <Project>
   <PropertyGroup>
     <BuildPath Condition="'$(BuildPath)' == ''">$(MSBuildThisFileDirectory)</BuildPath>
-    <MSBuildRazorCompilerExe>dotnet "$(BuildPath)netcoreapp3.1\MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
-    <MsBuildRazorCompilerPath>$(MSBuildProjectDirectory)</MsBuildRazorCompilerPath>
-    <MsBuildRazorCompilerRootNamespace>$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
-    <MsBuildRazorCompilerClassModifier>internal</MsBuildRazorCompilerClassModifier>
-  
-</PropertyGroup>
+    <MSBuildRazorCompile Condition="'$(MSBuildRazorCompile)' == ''">true</MSBuildRazorCompile>
+    <MsBuildRazorCompilerILRepack Condition="'$(MsBuildRazorCompilerILRepack)' == ''">true</MsBuildRazorCompilerILRepack>
+    <MSBuildRazorCompilerExe Condition="'$(MSBuildRazorCompilerExe)' == ''">dotnet "$(BuildPath)netcoreapp3.1\MSBuildRazorCompiler.dll"</MSBuildRazorCompilerExe>
+    <MsBuildRazorCompilerPath Condition="'$(MsBuildRazorCompilerPath)' == ''">$(MSBuildProjectDirectory)</MsBuildRazorCompilerPath>
+    <MsBuildRazorCompilerRootNamespace Condition="'$(MsBuildRazorCompilerRootNamespace)' == ''">$(RootNamespace)</MsBuildRazorCompilerRootNamespace>
+    <MsBuildRazorCompilerClassModifier Condition="'$(MsBuildRazorCompilerClassModifier)' == ''">internal</MsBuildRazorCompilerClassModifier>
+    <CopyLocalLockFileAssemblies Condition="'$(MsBuildRazorCompilerILRepack)' == 'true' and '$(CopyLocalLockFileAssemblies)' == ''">true</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
 
-  <Target Name="CompileRazorFiles" BeforeTargets="CoreCompile">
+  <Target Name="CompileRazorFiles" BeforeTargets="CoreCompile" Condition="'$(MSBuildRazorCompile)' == 'true'">
     <Exec Command="$(MSBuildRazorCompilerExe) &quot;$(MsBuildRazorCompilerPath)&quot; $(MsBuildRazorCompilerRootNamespace) $(MsBuildRazorCompilerClassModifier)" />
     <!-- We need to re-scan included source files in case this build has generated new ones https://stackoverflow.com/a/44829863 -->
     <ItemGroup>
@@ -18,10 +20,32 @@
     </ItemGroup>
   </Target>
 
-  <Target Name="CleanCompiledRazorFiles" BeforeTargets="CoreClean">
+  <Target Name="CleanCompiledRazorFiles" BeforeTargets="CoreClean" Condition="'$(MSBuildRazorCompile)' == 'true'">
     <ItemGroup>
       <_CustomFilesToDelete Include="**\**\*.cshtml.cs"/>
     </ItemGroup>
     <Delete Files='@(_CustomFilesToDelete)'/>
+  </Target>
+
+  <!-- https://www.phillipsj.net/posts/using-ilrepack-with-dotnet-core-sdk-and-dotnet-standard/ -->
+  <Target Name="ILRepack" AfterTargets="Build" Condition="'$(MsBuildRazorCompilerILRepack)' == 'true'">
+    <PropertyGroup>
+      <WorkingDirectory>$(MSBuildProjectDirectory)\bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>
+    </PropertyGroup>
+    <ItemGroup>
+      <InputAssemblies Include="RazorRenderer.dll" />
+      <InputAssemblies Include="RazorLight.dll" />
+    </ItemGroup>
+    <ItemGroup>
+      <InternalizeExcludeAssemblies Include="Microsoft.AspNetCore.Html.Abstractions.dll" />
+    </ItemGroup>
+    <Message Text="MERGING: @(InputAssemblies->'%(Filename)') into $(OutputAssembly)" Importance="High" />
+    <ILRepack
+      OutputType="$(OutputType)"
+      MainAssembly="$(AssemblyName).dll"
+      OutputAssembly="$(AssemblyName).dll"
+      InputAssemblies="@(InputAssemblies)"
+      InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)"
+      WorkingDirectory="$(WorkingDirectory)" />
   </Target>
 </Project>

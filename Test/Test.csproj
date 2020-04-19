@@ -4,10 +4,14 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <PreserveCompilationContext>true</PreserveCompilationContext>
+    <RazorLangVersion>3.0</RazorLangVersion>
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+    <RazorCompileOnPublish>false</RazorCompileOnPublish>
     <BuildPath>$(MSBuildThisFileDirectory)..\MSBuildRazorCompiler\bin\$(Configuration)\</BuildPath>
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="ILRepack.MSBuild.Task" Version="2.0.13" />
     <PackageReference Include="razorlight" Version="2.0.0-beta7" />
   </ItemGroup>
 
@@ -16,6 +20,7 @@
     <ProjectReference Include="..\RazorRenderer\RazorRenderer.csproj" />
   </ItemGroup>
 
+  <!-- Emulate what happens when the nuget package is installed and the target is automatically added -->
   <Import Project="../MSBuildRazorCompiler/CompileRazorFiles.targets" />
 
 </Project>
