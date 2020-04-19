@@ -8,7 +8,7 @@
     <dependencies>
       <group targetFramework=".NETCoreApp3.1">
         <dependency id="RazorLight" version="2.0.0-beta7" />
-        <dependency id="ILRepack.MSBuild.Task" version="2.0.13" privateAssets="all" />
+        <dependency id="ILRepack.MSBuild.Task" version="2.0.13" />
       </group>
     </dependencies>
   </metadata>
