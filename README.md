@@ -22,6 +22,8 @@ Because this library generates `.cs` files you don't need to worry about compila
 3. Compile - you should now see `SomeFile.cshtml.cs` next to your `SomeFile.cshtml`, this new file will contain a class `SomeFile` that extends `RazorLight.TemplatePage<TModel>` and will be in the namespace of your project at the folder level your file was in
 4. Execute the following code to get a rendered result (note: you'll need to add a `using RazorRenderer;`): `new SomeFile().Render(model, viewBag or null)` - there is also an async variant
 
+By default your dll will use IlRepack to internalise RazorRenderer and RazorLight so your assembly won't have any transitive dependencies outside of `Microsoft.AspNetCore.Mvc.Razor.Extensions` and `Microsoft.AspNetCore.Razor.Language`.
+
 ## Configuration
 
 If you want to configure the options for the compiler you can override any of these default variables in your `.csproj` file:
